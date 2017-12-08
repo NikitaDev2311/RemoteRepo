@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
-- (void)view:(UIView*)view setCenter:(CGPoint)centerPoint;
+//- (void)view:(UIView*)view setCenter:(CGPoint)centerPoint;
 
 
 @end
