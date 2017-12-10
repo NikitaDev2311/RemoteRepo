@@ -62,18 +62,19 @@
                                                     }];
     
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-            if (status == PHAuthorizationStatusAuthorized) {
+            dispatch_async(dispatch_get_main_queue(), ^{
                 self.xPositionOnScrollView = 0.0;
                 [self initializeGesture];
                 [self initializeImageManager];
                 self.photos = [[NSMutableArray alloc] init];
                 [self prepareScrollViewForZooming];
                 [self.collectionView reloadData];
-            }
-            else {
-            [self showConfirmAlertWithMessage:NSLocalizedString(@"You have denied permission to use the photo library. Go to the settings to change it", nil) title:NSLocalizedString(@"Permission", nil) withConfirmAction:confirm];
+            });
+            if (status == PHAuthorizationStatusDenied) {
+                [self showConfirmAlertWithMessage:NSLocalizedString(@"You have denied permission to use the photo library. Go to the settings to change it", nil) title:NSLocalizedString(@"Permission", nil) withConfirmAction:confirm];
             }
         }];
+    
 }
 
 #pragma mark - Assets
