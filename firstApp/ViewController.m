@@ -98,9 +98,11 @@
                                                        }];
                                                    }];
             [alert addAction:action];
-            [self presentViewController:alert animated:YES completion:^{
-                 [self viewDidLoad];
-            }];
+            if (success) {
+                [self presentViewController:alert animated:YES completion:^{
+                    [self viewDidLoad];
+                }];
+            }
         });
     }];
 }
@@ -177,7 +179,7 @@
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
     
-    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel"
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                      style:UIAlertActionStyleCancel
                                                    handler:nil];
     [alertController addAction:confirmAction];
@@ -247,7 +249,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PhotoCollectionViewCell *cell= (PhotoCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    self.asset = self.assetsFetchResults[indexPath.item];
+    PHFetchResult *result  = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
+    self.asset = result[indexPath.item];
     cell.imageView.image = [self.photos objectAtIndex:indexPath.row];
     if (cell.imageView.image) {
         [activityIndicatorView stopAnimating];
@@ -257,7 +260,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedPhotoIndex = indexPath.row;
-    self.asset = self.assetsFetchResults[indexPath.item];
+    PHFetchResult *result  = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
+    self.asset = result[indexPath.item];
     [self openConcretePhoto];
 }
 
