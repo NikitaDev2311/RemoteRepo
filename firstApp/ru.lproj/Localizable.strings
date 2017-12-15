@@ -4,3 +4,5 @@
 "Cancel" = "Отменить";
 "Confirm" = "Подтвердить";
 "You have denied permission to use the photo library. Go to the settings to change it" = "Вы запретили использовать библиотеку фотографий. Перейдите в настройки, чтобы изменить это";
+"Save failed" = "Ошибка загрузки";
+"Failed to save image" = "Не удалось сохранить изображение";
